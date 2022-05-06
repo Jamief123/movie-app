@@ -20,7 +20,6 @@ private val retrofit = Retrofit.Builder()
     .build()
 
 interface MovieApiService {
-    //Todo: break up URL and parameterize
     @GET("trending/all/day")
     suspend fun trendingMovies(@Query("api_key") apiKey: String): BaseResponse
 }
