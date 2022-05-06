@@ -1,6 +1,7 @@
 package com.jamieco.movieapp.ui
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,13 +19,13 @@ class HomeActivity : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
         val adapter = MovieListAdapter()
         recyclerView.adapter = adapter
-//        recyclerView.addItemDecoration(DividerItemDecoration(recyclerView.context, recyclerView.layoutDirection))
 
         val viewModel = HomeViewModel()
         viewModel.status.observe(
-            this, {
-                adapter.submitList(it)
-            }
-        )
+            this
+        ) {
+            adapter.submitList(it)
+            binding.tvLoading.visibility = View.GONE
+        }
     }
 }
