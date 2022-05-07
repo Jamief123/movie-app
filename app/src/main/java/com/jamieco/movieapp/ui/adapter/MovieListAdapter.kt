@@ -10,7 +10,7 @@ import com.jamieco.movieapp.R
 import com.jamieco.movieapp.data.Movie
 import com.jamieco.movieapp.databinding.ItemMovieBinding
 
-class MovieListAdapter: ListAdapter<Movie,MovieListAdapter.ItemViewHolder>(ItemCallBack()) {
+class MovieListAdapter: ListAdapter<Movie, MovieListAdapter.ItemViewHolder>(ItemCallBack()) {
     class ItemViewHolder(val binding: ItemMovieBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
