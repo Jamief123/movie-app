@@ -47,8 +47,8 @@ class HomeViewModel: ViewModel() {
             try {
                 val listResult = MovieApi.retrofitService.trendingMovies(apiKey)
                     .results.filter {  it.originalTitle!!.isNotEmpty() }
-                val collectionList = listOf(MovieCollection(listResult), MovieCollection(listResult),
-                    MovieCollection(listResult), MovieCollection(listResult))
+                val collectionList = listOf(MovieCollection(list=listResult), MovieCollection(list=listResult),
+                    MovieCollection(list=listResult), MovieCollection(list=listResult))
                 _categoriesLiveData.value = collectionList
             } catch (e: Exception) {
                 Log.d("HomeViewModel", "getCategoriesData: $e")
