@@ -1,34 +1,31 @@
 package com.jamieco.movieapp.ui
 
 import android.os.Bundle
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.jamieco.movieapp.R
-import com.jamieco.movieapp.databinding.ActivityMainBinding
-import com.jamieco.movieapp.ui.adapter.MovieListAdapter
+import com.jamieco.movieapp.databinding.HomeActivityBinding
+import com.jamieco.movieapp.ui.adapter.CollectionAdapter
 import com.jamieco.movieapp.viewmodel.HomeViewModel
 
-class HomeActivity : AppCompatActivity() {
+class HomeActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        val binding: ActivityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        val recyclerView = binding.rvMovieList
+        val binding: HomeActivityBinding = DataBindingUtil.setContentView(this, R.layout.home_activity)
+        val recyclerView = binding.rvHome
         recyclerView.layoutManager = LinearLayoutManager(this)
-        val adapter = MovieListAdapter()
-        recyclerView.adapter = adapter
-        recyclerView.addItemDecoration(DividerItemDecoration(this, recyclerView.layoutDirection))
 
+        val adapter = CollectionAdapter()
+        recyclerView.adapter = adapter
+
+        // Observe viewmodel for data.
+        // For now, use fake data from the viewmodel.
         val viewModel = HomeViewModel()
-        viewModel.status.observe(
+        viewModel.categoriesLiveData.observe(
             this
         ) {
             adapter.submitList(it)
-            binding.tvLoading.visibility = View.GONE
         }
     }
 }
