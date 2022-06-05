@@ -20,7 +20,10 @@
         <activity
             android:name=".ui.CollectionActivity"
             android:exported="true">
-
+        </activity>
+        <activity
+            android:name=".ui.DetailActivity"
+            android:exported="true">
         </activity>
     </application>
 </manifest>

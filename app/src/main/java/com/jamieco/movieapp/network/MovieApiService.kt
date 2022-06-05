@@ -1,12 +1,14 @@
 package com.jamieco.movieapp.network
 
 import com.jamieco.movieapp.data.BaseResponse
+import com.jamieco.movieapp.data.DetailMovie
 import com.jamieco.movieapp.data.Movie
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 const val BASE_URL = "https://api.themoviedb.org/3/"
@@ -25,16 +27,22 @@ interface MovieApiService {
     suspend fun trendingMovies(@Query("api_key") apiKey: String): BaseResponse
 
     @GET("movie/now_playing")
-    suspend fun nowPlaying(@Query("api_key",) apiKey: String): BaseResponse
+    suspend fun nowPlaying(@Query("api_key") apiKey: String): BaseResponse
 
     @GET("movie/upcoming")
-    suspend fun upcoming(@Query("api_key",) apiKey: String): BaseResponse
+    suspend fun upcoming(@Query("api_key") apiKey: String): BaseResponse
 
     @GET("movie/top_rated")
-    suspend fun topRated(@Query("api_key",) apiKey: String): BaseResponse
+    suspend fun topRated(@Query("api_key") apiKey: String): BaseResponse
 
     @GET("movie/latest")
-    suspend fun latest(@Query("api_key",) apiKey: String): Movie
+    suspend fun latest(@Query("api_key") apiKey: String): Movie
+
+    @GET("movie/{id}")
+    suspend fun getMovieDetails(
+        @Path("id") id: Int,
+        @Query("api_key") apiKey: String
+    ): DetailMovie
 }
 
 object MovieApi {

@@ -11,7 +11,19 @@ import com.jamieco.movieapp.data.Movie
 import com.jamieco.movieapp.databinding.ItemMovieBinding
 
 class MovieListAdapter: ListAdapter<Movie, MovieListAdapter.ItemViewHolder>(ItemCallBack()) {
-    class ItemViewHolder(val binding: ItemMovieBinding) : RecyclerView.ViewHolder(binding.root)
+
+    private lateinit var listener: ItemClickListener
+
+    interface ItemClickListener {
+        fun onClickMovie(position: Int)
+    }
+
+    fun setItemClickListener(newListener: ItemClickListener) {
+        listener = newListener
+    }
+
+    class ItemViewHolder(val binding: ItemMovieBinding, listener: ItemClickListener)
+        : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         return ItemViewHolder(
@@ -19,7 +31,7 @@ class MovieListAdapter: ListAdapter<Movie, MovieListAdapter.ItemViewHolder>(Item
                 LayoutInflater.from(parent.context),
                 parent,
                 false
-            )
+            ),listener
         )
     }
 
@@ -32,6 +44,10 @@ class MovieListAdapter: ListAdapter<Movie, MovieListAdapter.ItemViewHolder>(Item
                 holder.binding.tvReleaseDate.append(this)
             } else {
                 holder.binding.tvReleaseDate.text = holder.binding.root.context.getString(R.string.unreleased)
+            }
+            holder.itemView.setOnClickListener {
+                // TODO: Add handling for movie with no ID
+                listener.onClickMovie(getItem(position).id ?: 0)
             }
         }
 
