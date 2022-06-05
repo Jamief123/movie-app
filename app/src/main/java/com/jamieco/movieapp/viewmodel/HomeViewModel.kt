@@ -26,7 +26,7 @@ class HomeViewModel: ViewModel() {
     init {
         // getTrendingMovies()
         Log.d("HomeViewModel", "getCategoriesData: ")
-        getCategoriesData()
+        getCollections()
     }
 
     private fun getTrendingMovies() {
@@ -41,14 +41,27 @@ class HomeViewModel: ViewModel() {
         }
     }
 
-    private fun getCategoriesData() {
+    private fun getCollections() {
         // Reuse same API endpoint for now, and duplicate data.
         viewModelScope.launch {
             try {
-                val listResult = MovieApi.retrofitService.trendingMovies(apiKey)
-                    .results.filter {  it.originalTitle!!.isNotEmpty() }
-                val collectionList = listOf(MovieCollection(list=listResult), MovieCollection(list=listResult),
-                    MovieCollection(list=listResult), MovieCollection(list=listResult))
+
+                val trendingCollection = MovieApi.retrofitService.trendingMovies(apiKey)
+                    .results.filter {  it.originalTitle != null && it.originalTitle.isNotEmpty() }
+                val nowPlayingCollection = MovieApi.retrofitService.nowPlaying(apiKey)
+                    .results.filter {  it.originalTitle != null && it.originalTitle.isNotEmpty() }
+                val upcomingCollection = MovieApi.retrofitService.upcoming(apiKey)
+                    .results.filter {  it.originalTitle != null && it.originalTitle.isNotEmpty() }
+                val topRatedCollection = MovieApi.retrofitService.topRated(apiKey)
+                    .results.filter {  it.originalTitle != null && it.originalTitle.isNotEmpty() }
+//                val latestCollection = MovieApi.retrofitService.latest(apiKey)
+
+                val collectionList = listOf(
+                    MovieCollection("Trending", trendingCollection),
+                    MovieCollection("Now Playing", nowPlayingCollection),
+                    MovieCollection("Upcoming", upcomingCollection),
+                    MovieCollection("Top Rated", (topRatedCollection))
+                )
                 _categoriesLiveData.value = collectionList
             } catch (e: Exception) {
                 Log.d("HomeViewModel", "getCategoriesData: $e")

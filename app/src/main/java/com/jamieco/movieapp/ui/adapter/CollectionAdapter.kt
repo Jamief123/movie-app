@@ -13,8 +13,6 @@ import com.jamieco.movieapp.databinding.ItemMovieBinding
 import com.jamieco.movieapp.databinding.ItemMovieCollectionBinding
 
 class CollectionAdapter : ListAdapter<MovieCollection, CollectionAdapter.ItemViewHolder>(ItemCallBack()) {
-    // Keep a reference to the internal adapter for the horizontal recyclerView
-    private val adapter = MovieListAdapter()
 
     class ItemViewHolder(val binding: ItemMovieCollectionBinding): RecyclerView.ViewHolder(binding.root)
 
@@ -29,6 +27,8 @@ class CollectionAdapter : ListAdapter<MovieCollection, CollectionAdapter.ItemVie
     }
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
+        // Keep a reference to the internal adapter for the horizontal recyclerView
+        val adapter = MovieListAdapter()
         with(holder.binding.rvHomeCollection) {
             this.layoutManager = LinearLayoutManager(holder.binding.root.context,
                 RecyclerView.HORIZONTAL,

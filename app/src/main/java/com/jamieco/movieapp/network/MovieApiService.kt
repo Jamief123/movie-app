@@ -1,6 +1,7 @@
 package com.jamieco.movieapp.network
 
 import com.jamieco.movieapp.data.BaseResponse
+import com.jamieco.movieapp.data.Movie
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Retrofit
@@ -22,6 +23,18 @@ private val retrofit = Retrofit.Builder()
 interface MovieApiService {
     @GET("trending/all/day")
     suspend fun trendingMovies(@Query("api_key") apiKey: String): BaseResponse
+
+    @GET("movie/now_playing")
+    suspend fun nowPlaying(@Query("api_key",) apiKey: String): BaseResponse
+
+    @GET("movie/upcoming")
+    suspend fun upcoming(@Query("api_key",) apiKey: String): BaseResponse
+
+    @GET("movie/top_rated")
+    suspend fun topRated(@Query("api_key",) apiKey: String): BaseResponse
+
+    @GET("movie/latest")
+    suspend fun latest(@Query("api_key",) apiKey: String): Movie
 }
 
 object MovieApi {
