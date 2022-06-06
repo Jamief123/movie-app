@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.jamieco.movieapp.R
 import com.jamieco.movieapp.data.Movie
 import com.jamieco.movieapp.databinding.ItemMovieBinding
 
@@ -15,14 +14,14 @@ class MovieListAdapter: ListAdapter<Movie, MovieListAdapter.ItemViewHolder>(Item
     private lateinit var listener: ItemClickListener
 
     interface ItemClickListener {
-        fun onClickMovie(position: Int)
+        fun onClickMovie(movieId: Int)
     }
 
     fun setItemClickListener(newListener: ItemClickListener) {
         listener = newListener
     }
 
-    class ItemViewHolder(val binding: ItemMovieBinding, listener: ItemClickListener)
+    class ItemViewHolder(val binding: ItemMovieBinding)
         : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
@@ -31,7 +30,7 @@ class MovieListAdapter: ListAdapter<Movie, MovieListAdapter.ItemViewHolder>(Item
                 LayoutInflater.from(parent.context),
                 parent,
                 false
-            ),listener
+            )
         )
     }
 
@@ -40,11 +39,6 @@ class MovieListAdapter: ListAdapter<Movie, MovieListAdapter.ItemViewHolder>(Item
         holder.binding.tvTitle.text = movie.originalTitle
         holder.binding.tvRating.text = movie.voteAverage.toString()
         requireNotNull(movie.releaseDate).apply {
-            if (this.isNotEmpty()) {
-                holder.binding.tvReleaseDate.append(this)
-            } else {
-                holder.binding.tvReleaseDate.text = holder.binding.root.context.getString(R.string.unreleased)
-            }
             holder.itemView.setOnClickListener {
                 // TODO: Add handling for movie with no ID
                 listener.onClickMovie(getItem(position).id ?: 0)

@@ -27,6 +27,8 @@ class DetailViewModel(movieId: Int): ViewModel() {
         viewModelScope.launch {
             try {
                 val movieDetails = MovieApi.retrofitService.getMovieDetails(movieId, apiKey)
+                val videos = MovieApi.retrofitService.getVideos(movieId, apiKey)
+                movieDetails.videos = videos.results
                 _detailLiveData.value = movieDetails
             } catch (e: Exception) {
                 Log.d("DetailViewModel", "getMovieDetails: $e")

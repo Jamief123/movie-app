@@ -3,6 +3,8 @@ package com.jamieco.movieapp.data
 import com.squareup.moshi.Json
 
 data class DetailMovie(
+
+    // Direct JSON mappings
     val overview: String?,
     @Json(name="original_language")
     val originalLanguage: String? = "",
@@ -10,7 +12,7 @@ data class DetailMovie(
     val spokenLanguages: String?,
     @Json(name="original_title")
     val originalTitle: String? = "",
-    val video: Boolean? = false,
+    val video: Boolean,
     val title: String? = "",
     val genreIds: List<Int>?,
     @Json(name="poster_path")
@@ -27,5 +29,7 @@ data class DetailMovie(
     val id: Int? = 0,
     val adult: Boolean? = false,
     @Json(name="vote_count")
-    val voteCount: Int? = 0
+    val voteCount: Int? = 0,
+
+    var videos: List<Video>?
 )
