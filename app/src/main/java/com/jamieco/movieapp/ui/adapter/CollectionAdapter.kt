@@ -42,7 +42,7 @@ class CollectionAdapter : ListAdapter<MovieCollection,
         }
         holder.binding.rvHomeCollection.adapter = adapter
         adapter.submitList(getItem(position).list)
-        holder.binding.tvCollectionTitle.text = getItem(position).category
+        holder.binding.tvCollectionTitle.text = " | ${getItem(position).category}"
     }
 }
 

@@ -36,10 +36,12 @@ class DetailActivity: AppCompatActivity() {
 
     private fun bindViews(movie: DetailMovie) {
         binding.tvDetailTitle.text = movie.originalTitle
+        binding.tvOverview.text = movie.overview
         val youtubePlayer = binding.youtubePlayerView
         youtubePlayer.addYouTubePlayerListener(object: AbstractYouTubePlayerListener() {
             override fun onReady(youTubePlayer: YouTubePlayer) {
                 super.onReady(youTubePlayer)
+                binding.youtubePlayerView.visibility = View.VISIBLE
                 val video = movie.videos?.filter {
                     it.site.lowercase(Locale.getDefault()).contains("youtube")
                 }?.get(0)

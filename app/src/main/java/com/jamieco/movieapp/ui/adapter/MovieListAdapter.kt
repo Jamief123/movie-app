@@ -1,6 +1,7 @@
 package com.jamieco.movieapp.ui.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -43,6 +44,8 @@ class MovieListAdapter: ListAdapter<Movie, MovieListAdapter.ItemViewHolder>(Item
                 // TODO: Add handling for movie with no ID
                 listener.onClickMovie(getItem(position).id ?: 0)
             }
+            holder.binding.tvYear.text = movie.releaseDate.split("-")[0]
+
         }
 
 

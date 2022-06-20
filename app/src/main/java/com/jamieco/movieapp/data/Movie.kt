@@ -25,5 +25,7 @@ data class Movie(
     val id: Int? = 0,
     val adult: Boolean? = false,
     @Json(name="vote_count")
-    val voteCount: Int? = 0
+    val voteCount: Int? = 0,
+    @Json(name="runtime")
+    val runtime: Int?
 )
