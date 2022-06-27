@@ -6,4 +6,5 @@
     <string name="release_date">Release Date:</string>
     <string name="unreleased">Unreleased</string>
     <string name="see_more">See More</string>
+    <string name="search_hint">Search</string>
 </resources>

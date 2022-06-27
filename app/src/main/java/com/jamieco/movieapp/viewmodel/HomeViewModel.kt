@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.jamieco.movieapp.BuildConfig
 import com.jamieco.movieapp.data.Movie
 import com.jamieco.movieapp.data.MovieCollection
+import com.jamieco.movieapp.data.SearchQueryResponse
 import com.jamieco.movieapp.network.MovieApi
 import kotlinx.coroutines.launch
 
@@ -68,4 +69,5 @@ class HomeViewModel: ViewModel() {
             }
         }
     }
+
 }

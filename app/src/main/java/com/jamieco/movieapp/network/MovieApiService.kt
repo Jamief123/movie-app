@@ -47,6 +47,18 @@ interface MovieApiService {
         @Path("id") id: Int,
         @Query("api_key") apiKey: String
     ): BaseVideoResponse
+
+    @GET("search/movie")
+    suspend fun searchQuery(
+        @Query("api_key") apiKey: String,
+        @Query("query") query: String,
+        @Query("language") language: String?,
+        @Query("page") page: Int?,
+        @Query("include_adult") includeAdult: Boolean?,
+        @Query("region") region: String?,
+        @Query("year") year: Int?,
+        @Query("primary_release_year") primaryReleaseYear: String?,
+    ): SearchQueryResponse
 }
 
 object MovieApi {
