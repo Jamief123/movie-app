@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.jamieco.movieapp.BuildConfig
 import com.jamieco.movieapp.data.DetailMovie
-import com.jamieco.movieapp.data.Movie
+import com.jamieco.movieapp.data.MovieRequestAdditions
 import com.jamieco.movieapp.network.MovieApi
 import kotlinx.coroutines.launch
 
@@ -26,7 +26,7 @@ class DetailViewModel(movieId: Int): ViewModel() {
     private fun getDetails(movieId: Int) {
         viewModelScope.launch {
             try {
-                val movieDetails = MovieApi.retrofitService.getMovieDetails(movieId, apiKey)
+                val movieDetails = MovieApi.retrofitService.getMovieDetails(movieId, apiKey, listOf(MovieRequestAdditions.CREDITS))
                 val videos = MovieApi.retrofitService.getVideos(movieId, apiKey)
                 movieDetails.videos = videos.results
                 _detailLiveData.value = movieDetails

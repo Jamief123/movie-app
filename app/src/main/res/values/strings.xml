@@ -7,4 +7,6 @@
     <string name="unreleased">Unreleased</string>
     <string name="see_more">See More</string>
     <string name="search_hint">Search</string>
+    <string name="overview">Overview</string>
+    <string name="cast">Cast</string>
 </resources>

@@ -1,6 +1,7 @@
 package com.jamieco.movieapp.network
 
 import com.jamieco.movieapp.data.*
+import com.jamieco.movieapp.data.DetailMovie
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Retrofit
@@ -39,7 +40,8 @@ interface MovieApiService {
     @GET("movie/{id}")
     suspend fun getMovieDetails(
         @Path("id") id: Int,
-        @Query("api_key") apiKey: String
+        @Query("api_key") apiKey: String,
+        @Query("append_to_response") additions: List<String>
     ): DetailMovie
 
     @GET("movie/{id}/videos")

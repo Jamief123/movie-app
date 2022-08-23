@@ -1,19 +1,19 @@
 package com.jamieco.movieapp.ui
 
-import android.opengl.Visibility
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.jamieco.movieapp.databinding.ActivityDetailBinding
 import com.jamieco.movieapp.R
 import com.jamieco.movieapp.data.DetailMovie
+import com.jamieco.movieapp.data.ui.detail.Cast
+import com.jamieco.movieapp.ui.adapter.CastAdapter
 import com.jamieco.movieapp.viewmodel.DetailViewModel
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerListener
 import java.util.*
 
 const val MOVIE_KEY = "MOVIE_KEY"
@@ -25,9 +25,8 @@ class DetailActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_detail)
         lifecycle.addObserver(binding.youtubePlayerView)
-        val movieId = requireNotNull(
-            intent?.extras?.getString(MOVIE_KEY)?.toInt()
-        )
+        val movieId = intent?.extras?.getString(MOVIE_KEY)?.toInt() ?: -1
+
         val viewModel = DetailViewModel(movieId)
         viewModel.detailLiveData.observe(this) {
             bindViews(it)
@@ -52,5 +51,13 @@ class DetailActivity: AppCompatActivity() {
                 }
             }
         })
+        val castAdapter = CastAdapter()
+        binding.rvCast.adapter = castAdapter
+        binding.rvCast.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        val castList = movie.credits?.cast
+            ?.filter { it.name?.isNotEmpty() == true && it.profilePath?.isNotEmpty() == true }
+            ?.map { Cast(it.id, it.profilePath!!, it.name!!) }
+            ?.take(10)
+        castList?.let { castAdapter.submitList(castList) }
     }
 }

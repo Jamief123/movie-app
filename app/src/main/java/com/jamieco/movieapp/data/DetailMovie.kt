@@ -1,5 +1,7 @@
 package com.jamieco.movieapp.data
 
+import com.jamieco.movieapp.data.Video
+import com.jamieco.movieapp.data.networkmodels.Credits
 import com.squareup.moshi.Json
 
 data class DetailMovie(
@@ -31,5 +33,7 @@ data class DetailMovie(
     @Json(name="vote_count")
     val voteCount: Int? = 0,
 
-    var videos: List<Video>?
+    // Can be appended to base response. Can also be null.
+    var videos: List<Video>?,
+    var credits: Credits?
 )
